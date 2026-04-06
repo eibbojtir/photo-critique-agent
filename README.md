@@ -12,7 +12,7 @@ This initial scaffold includes:
 - A placeholder Jinja2 Markdown template
 - Unit tests covering the core models and persona loading
 
-Implementation of EXIF extraction, CSV ingestion, and final report rendering is intentionally deferred.
+Implementation of final critique generation is still deferred, but the project now includes a local ingestion and inspection workflow for JPEG assets.
 
 ## Setup
 
@@ -36,7 +36,14 @@ Include supplemental metadata:
 photo-critique ./photos --metadata-csv ./metadata.csv --persona wildlife
 ```
 
-The scaffolded CLI currently validates arguments and prints the normalized job configuration as JSON.
+Inspect a folder of JPEGs, merge optional CSV metadata, and write normalized assets to `output/assets.json`:
+
+```bash
+photo-critique inspect ./photos
+photo-critique inspect ./photos --metadata ./metadata.csv
+```
+
+The inspect command prints a short summary, extracts EXIF metadata when available, and normalizes each discovered image into a `PhotoAsset` payload.
 
 ## Project Layout
 

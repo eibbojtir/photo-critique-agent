@@ -40,5 +40,6 @@ class PhotoAsset(BaseModel):
 
     filename: str
     path: Path
+    relative_path: Optional[Path] = None
     exif: Optional[ExifMetadata] = None
     supplemental: Optional[SupplementalMetadata] = None

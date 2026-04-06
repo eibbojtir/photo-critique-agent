@@ -3,8 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 
+import json
 import typer
 
+from photo_critique_agent.ingestion import inspect_photo_assets
 from photo_critique_agent.models.job import CritiqueJobConfig
 
 app = typer.Typer(
@@ -29,6 +31,51 @@ def critique(
         persona_name=persona,
     )
     typer.echo(job.model_dump_json(indent=2))
+
+
+@app.command("inspect")
+def inspect_command(
+    images_dir: Path = typer.Argument(..., exists=True, file_okay=False, dir_okay=True),
+    metadata: Optional[Path] = typer.Option(
+        None,
+        "--metadata",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Optional CSV file with supplemental photo metadata.",
+    ),
+) -> None:
+    """Inspect JPEG assets and write normalized metadata to disk."""
+    assets = inspect_photo_assets(images_dir=images_dir, metadata_csv=metadata)
+
+    output_dir = Path("output")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / "assets.json"
+    output_path.write_text(
+        json.dumps(
+            [asset.model_dump(mode="json") for asset in assets],
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    exif_count = sum(
+        1
+        for asset in assets
+        if asset.exif
+        and any(
+            value is not None
+            for key, value in asset.exif.model_dump().items()
+            if key not in {"width_px", "height_px"}
+        )
+    )
+    supplemental_count = sum(1 for asset in assets if asset.supplemental is not None)
+
+    typer.echo(f"Found {len(assets)} JPEG images in {images_dir}")
+    typer.echo(f"EXIF extracted for {exif_count} images")
+    typer.echo(f"Supplemental metadata merged for {supplemental_count} images")
+    typer.echo(f"Wrote normalized assets to {output_path}")
 
 
 if __name__ == "__main__":
