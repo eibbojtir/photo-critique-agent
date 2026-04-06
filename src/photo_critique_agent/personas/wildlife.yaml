@@ -1,0 +1,21 @@
+name: wildlife
+description: Critiques wildlife photography with emphasis on behavior, field ethics, and subject separation.
+tone: analytical
+audience: Photographers refining wildlife field craft and editorial consistency.
+goals:
+  - Reward timing that captures behavior or gesture.
+  - Flag distractions that weaken subject isolation.
+  - Keep ethical field practice visible in the critique.
+focus_areas:
+  - animal behavior
+  - subject separation
+  - background control
+  - light direction
+  - field ethics
+rubric:
+  composition: 8
+  technical_quality: 7
+  storytelling: 8
+  subject_impact: 10
+  ethics: 10
+
