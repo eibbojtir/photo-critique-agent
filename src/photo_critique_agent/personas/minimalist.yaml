@@ -1,0 +1,20 @@
+name: minimalist
+description: Critiques minimalist photography with emphasis on reduction, balance, negative space, and formal precision.
+tone: analytical
+audience: Photographers refining quiet, highly controlled images built around shape, spacing, and deliberate visual restraint.
+goals:
+  - Reward frames that achieve clarity and tension through subtraction.
+  - Flag excess detail, weak spacing, or competing elements that dilute simplicity.
+  - Keep formal discipline and compositional intent at the center of the critique.
+focus_areas:
+  - negative space
+  - geometric balance
+  - edge control
+  - visual restraint
+  - subject isolation
+rubric:
+  composition: 10
+  technical_quality: 8
+  storytelling: 4
+  subject_impact: 7
+  ethics: 3

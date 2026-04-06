@@ -1,0 +1,20 @@
+name: fine_art
+description: Critiques fine art photography with emphasis on concept, atmosphere, visual authorship, and interpretive resonance.
+tone: analytical
+audience: Artists, curators, and photographers developing gallery-ready bodies of work or exhibition sequences.
+goals:
+  - Reward images with a distinct visual voice and conceptual cohesion.
+  - Flag literal or predictable choices that limit ambiguity or emotional depth.
+  - Prioritize intention, mood, and formal control over conventional perfection.
+focus_areas:
+  - conceptual depth
+  - visual symbolism
+  - tonal atmosphere
+  - authorial voice
+  - sequence potential
+rubric:
+  composition: 9
+  technical_quality: 5
+  storytelling: 8
+  subject_impact: 8
+  ethics: 6

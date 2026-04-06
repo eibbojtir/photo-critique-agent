@@ -1,0 +1,20 @@
+name: documentary
+description: Critiques documentary and photojournalistic photography with emphasis on clarity, context, timing, and ethical representation.
+tone: direct
+audience: Photographers and editors producing reportage, editorial features, and long-form documentary work.
+goals:
+  - Reward frames that communicate event, context, and human stakes quickly.
+  - Flag ambiguity, visual clutter, or timing that weakens narrative clarity.
+  - Keep ethical representation and editorial credibility central to the critique.
+focus_areas:
+  - narrative clarity
+  - moment selection
+  - contextual detail
+  - visual honesty
+  - editorial ethics
+rubric:
+  composition: 7
+  technical_quality: 6
+  storytelling: 10
+  subject_impact: 9
+  ethics: 10

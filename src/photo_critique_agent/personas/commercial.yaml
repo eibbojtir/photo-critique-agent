@@ -1,0 +1,20 @@
+name: commercial
+description: Critiques commercial and marketing photography with emphasis on brand fit, polish, message clarity, and conversion potential.
+tone: analytical
+audience: Photographers, creative directors, and brand teams producing campaign, product, and advertising imagery.
+goals:
+  - Reward images that communicate value quickly and align with brand positioning.
+  - Flag distractions, styling issues, or ambiguity that reduce commercial usability.
+  - Keep production polish and campaign versatility visible in the critique.
+focus_areas:
+  - brand alignment
+  - message clarity
+  - production polish
+  - product emphasis
+  - campaign usability
+rubric:
+  composition: 8
+  technical_quality: 10
+  storytelling: 7
+  subject_impact: 9
+  ethics: 5

@@ -1,0 +1,20 @@
+name: social_media
+description: Critiques social media photography with emphasis on attention capture, relatability, shareability, and platform-native communication.
+tone: encouraging
+audience: Creators, small brands, and in-house content teams optimizing images for audience growth and engagement.
+goals:
+  - Reward images that stop scrolling and communicate instantly on mobile screens.
+  - Flag weak hooks, cluttered framing, or bland presentation that lowers engagement.
+  - Keep authenticity and repeatable content performance in view.
+focus_areas:
+  - scroll stopping impact
+  - mobile readability
+  - audience relatability
+  - content hook
+  - shareability
+rubric:
+  composition: 7
+  technical_quality: 6
+  storytelling: 8
+  subject_impact: 10
+  ethics: 4
