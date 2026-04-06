@@ -52,13 +52,22 @@ photo-critique analyze ./photos --persona wildlife
 photo-critique analyze ./photos --metadata ./metadata.csv --persona wildlife
 ```
 
-The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes a demo-ready output bundle:
+The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes a local output bundle:
 
 - `output/results.json`
 - `output/critique_report.md`
 - `output/critique_report.html`
 
 Open `output/critique_report.html` directly in a browser for a simple local demo.
+
+Generated files under `output/` are intentionally ignored by git so local image metadata and file paths do not get committed by accident.
+
+For documentation and public-repo examples, use the anonymized sample bundle in `examples/sample_output/`:
+
+- `examples/sample_output/results.json`
+- `examples/sample_output/critique_report.md`
+- `examples/sample_output/critique_report.html`
+- `examples/sample_output/assets.json`
 
 ## Project Layout
 

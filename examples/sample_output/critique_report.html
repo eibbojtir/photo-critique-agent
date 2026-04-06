@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Critique Report</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f4ef;
+        --panel: #fffdf8;
+        --border: #d9d0c3;
+        --text: #1f1b16;
+        --muted: #6d6255;
+        --accent: #2f6c5b;
+        --accent-soft: #e4f0eb;
+        --pass: #8a4f3d;
+        --pass-soft: #f6e8e1;
+        --keep: #2f6c5b;
+        --keep-soft: #e4f0eb;
+        --shadow: 0 14px 28px rgba(45, 36, 25, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #fbf9f4 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+      h1, h2, h3, p { margin-top: 0; }
+      .hero, .panel, .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+      .hero {
+        padding: 28px;
+        margin-bottom: 24px;
+      }
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+      }
+      .panel {
+        padding: 18px;
+      }
+      .summary .panel strong {
+        display: block;
+        font-size: 1.7rem;
+        margin-bottom: 6px;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 24px 0 32px;
+      }
+      .rank {
+        color: var(--muted);
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+      .score-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .score-badge.keep {
+        background: var(--keep-soft);
+        color: var(--keep);
+      }
+      .score-badge.pass {
+        background: var(--pass-soft);
+        color: var(--pass);
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .cards {
+        display: grid;
+        gap: 18px;
+      }
+      .card {
+        padding: 22px;
+      }
+      ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      @media (max-width: 640px) {
+        main { padding: 20px 14px 40px; }
+        .hero, .panel, .card { border-radius: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="rank">Persona</p>
+        <h1>Wildlife Critique Session</h1>
+        <p>An anonymized sample report for documentation and public-repo demos.</p>
+        <div class="summary">
+          <div class="panel">
+            <strong>5</strong>
+            <span>Images reviewed</span>
+          </div>
+          <div class="panel">
+            <strong>2</strong>
+            <span>Keep picks</span>
+          </div>
+          <div class="panel">
+            <strong>3</strong>
+            <span>Passes</span>
+          </div>
+          <div class="panel">
+            <strong>7.38</strong>
+            <span>Average score</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Ranked Gallery</h2>
+        <div class="gallery">
+          <article class="panel">
+            <p class="rank">#1</p>
+            <h3>river-tern-03.jpg</h3>
+            <p><span class="score-badge keep">8.6 / keep</span></p>
+            <p class="meta">river-tern-03.jpg</p>
+            <p>Strong long-lens coverage and solid motion control make this a convincing wildlife keeper in the sample set.</p>
+          </article>
+          <article class="panel">
+            <p class="rank">#2</p>
+            <h3>meadow-heron-01.jpg</h3>
+            <p><span class="score-badge keep">7.9 / keep</span></p>
+            <p class="meta">meadow-heron-01.jpg</p>
+            <p>This sample frame reads as a dependable wildlife keep, with only a small opportunity to strengthen the moment.</p>
+          </article>
+          <article class="panel">
+            <p class="rank">#3</p>
+            <h3>reed-warbler-02.jpg</h3>
+            <p><span class="score-badge pass">7.2 / pass</span></p>
+            <p class="meta">reed-warbler-02.jpg</p>
+            <p>A usable sample frame, but the technical margin is thinner than the top keepers.</p>
+          </article>
+          <article class="panel">
+            <p class="rank">#4</p>
+            <h3>marsh-egret-04.jpg</h3>
+            <p><span class="score-badge pass">6.8 / pass</span></p>
+            <p class="meta">marsh-egret-04.jpg</p>
+            <p>This sample image is serviceable, but it does not hit the same confidence level as the top-ranked frames.</p>
+          </article>
+          <article class="panel">
+            <p class="rank">#5</p>
+            <h3>oak-perch-05.jpg</h3>
+            <p><span class="score-badge pass">6.4 / pass</span></p>
+            <p class="meta">oak-perch-05.jpg</p>
+            <p>This sample result stays in pass territory because the technical story is fine without standing out.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cards">
+        <h2>Per-image Critiques</h2>
+        <article class="card">
+          <p class="rank">#1</p>
+          <h3>river-tern-03.jpg</h3>
+          <p><span class="score-badge keep">8.6 / keep</span></p>
+          <p class="meta">Sample rating 4</p>
+          <p>Strong long-lens coverage and solid motion control make this a convincing wildlife keeper in the sample set.</p>
+          <div class="split">
+            <section>
+              <h4>Strengths</h4>
+              <ul>
+                <li>Long focal length is well matched to a distant wildlife subject.</li>
+                <li>Shutter speed is fast enough to support confident subject detail.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Weaknesses</h4>
+              <ul>
+                <li>A little more subject isolation would make the frame feel more decisive.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+        <article class="card">
+          <p class="rank">#2</p>
+          <h3>meadow-heron-01.jpg</h3>
+          <p><span class="score-badge keep">7.9 / keep</span></p>
+          <p class="meta">Sample rating 4</p>
+          <p>This sample frame reads as a dependable wildlife keep, with only a small opportunity to strengthen the moment.</p>
+          <div class="split">
+            <section>
+              <h4>Strengths</h4>
+              <ul>
+                <li>Reach, aperture, and shutter speed create a credible wildlife capture profile.</li>
+                <li>Balanced ISO suggests a practical tradeoff for available light.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Weaknesses</h4>
+              <ul>
+                <li>The frame would benefit from a slightly more distinctive moment or gesture.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+        <article class="card">
+          <p class="rank">#3</p>
+          <h3>reed-warbler-02.jpg</h3>
+          <p><span class="score-badge pass">7.2 / pass</span></p>
+          <p class="meta">Sample rating 3</p>
+          <p>A usable sample frame, but the technical margin is thinner than the top keepers.</p>
+          <div class="split">
+            <section>
+              <h4>Strengths</h4>
+              <ul>
+                <li>The focal length still gives useful reach for a small subject.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Weaknesses</h4>
+              <ul>
+                <li>Higher ISO suggests the file may have less editing headroom.</li>
+                <li>Shutter speed is workable but not especially generous for erratic movement.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

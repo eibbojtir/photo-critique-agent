@@ -1,0 +1,425 @@
+{
+  "persona": "wildlife",
+  "summary": {
+    "total_images": 5,
+    "keep_count": 2,
+    "pass_count": 3,
+    "average_score": 7.38
+  },
+  "top_images": [
+    {
+      "rank": 1,
+      "asset": {
+        "filename": "river-tern-03.jpg",
+        "path": "/sample/input/river-tern-03.jpg",
+        "relative_path": "river-tern-03.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF150-600mmF5.6-8 R LM OIS WR",
+          "captured_at": "2025-01-15T08:41:00",
+          "focal_length_mm": 600.0,
+          "aperture": 8.0,
+          "shutter_speed_s": 0.00125,
+          "iso": 1250,
+          "width_px": 7728,
+          "height_px": 5152
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "river-tern-03.jpg",
+        "persona": "wildlife",
+        "score": 8.6,
+        "strengths": [
+          "Long focal length is well matched to a distant wildlife subject.",
+          "Shutter speed is fast enough to support confident subject detail."
+        ],
+        "weaknesses": [
+          "A little more subject isolation would make the frame feel more decisive."
+        ],
+        "recommendation": "keep",
+        "critique": "Strong long-lens coverage and solid motion control make this a convincing wildlife keeper in the sample set.",
+        "context": {
+          "rating": 4,
+          "keywords": [
+            "bird",
+            "flight"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 2,
+      "asset": {
+        "filename": "meadow-heron-01.jpg",
+        "path": "/sample/input/meadow-heron-01.jpg",
+        "relative_path": "meadow-heron-01.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:30:00",
+          "focal_length_mm": 400.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.001,
+          "iso": 1600,
+          "width_px": 3907,
+          "height_px": 2605
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "meadow-heron-01.jpg",
+        "persona": "wildlife",
+        "score": 7.9,
+        "strengths": [
+          "Reach, aperture, and shutter speed create a credible wildlife capture profile.",
+          "Balanced ISO suggests a practical tradeoff for available light."
+        ],
+        "weaknesses": [
+          "The frame would benefit from a slightly more distinctive moment or gesture."
+        ],
+        "recommendation": "keep",
+        "critique": "This sample frame reads as a dependable wildlife keep, with only a small opportunity to strengthen the moment.",
+        "context": {
+          "rating": 4,
+          "keywords": [
+            "wading bird"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "asset": {
+        "filename": "reed-warbler-02.jpg",
+        "path": "/sample/input/reed-warbler-02.jpg",
+        "relative_path": "reed-warbler-02.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:33:00",
+          "focal_length_mm": 356.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.0008,
+          "iso": 2000,
+          "width_px": 3742,
+          "height_px": 2495
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "reed-warbler-02.jpg",
+        "persona": "wildlife",
+        "score": 7.2,
+        "strengths": [
+          "The focal length still gives useful reach for a small subject."
+        ],
+        "weaknesses": [
+          "Higher ISO suggests the file may have less editing headroom.",
+          "Shutter speed is workable but not especially generous for erratic movement."
+        ],
+        "recommendation": "pass",
+        "critique": "A usable sample frame, but the technical margin is thinner than the top keepers.",
+        "context": {
+          "rating": 3,
+          "keywords": [
+            "songbird"
+          ]
+        }
+      }
+    }
+  ],
+  "runners_up": [
+    {
+      "rank": 4,
+      "asset": {
+        "filename": "marsh-egret-04.jpg",
+        "path": "/sample/input/marsh-egret-04.jpg",
+        "relative_path": "marsh-egret-04.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:46:00",
+          "focal_length_mm": 278.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.0005,
+          "iso": 2500,
+          "width_px": 4296,
+          "height_px": 2864
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "marsh-egret-04.jpg",
+        "persona": "wildlife",
+        "score": 6.8,
+        "strengths": [
+          "The exposure choices are plausible for a low-light wildlife scenario."
+        ],
+        "weaknesses": [
+          "Shorter reach weakens subject presence for this persona.",
+          "ISO is elevated enough to reduce confidence in fine detail."
+        ],
+        "recommendation": "pass",
+        "critique": "This sample image is serviceable, but it does not hit the same confidence level as the top-ranked frames.",
+        "context": {
+          "rating": 3,
+          "keywords": [
+            "shorebird"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 5,
+      "asset": {
+        "filename": "oak-perch-05.jpg",
+        "path": "/sample/input/oak-perch-05.jpg",
+        "relative_path": "oak-perch-05.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:52:00",
+          "focal_length_mm": 400.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.001,
+          "iso": 800,
+          "width_px": 4284,
+          "height_px": 2856
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "oak-perch-05.jpg",
+        "persona": "wildlife",
+        "score": 6.4,
+        "strengths": [
+          "The exposure settings are technically stable."
+        ],
+        "weaknesses": [
+          "The metadata profile looks competent but not distinctive enough for a keep recommendation."
+        ],
+        "recommendation": "pass",
+        "critique": "This sample result stays in pass territory because the technical story is fine without standing out.",
+        "context": {
+          "rating": 2,
+          "keywords": [
+            "perched bird"
+          ]
+        }
+      }
+    }
+  ],
+  "entries": [
+    {
+      "rank": 1,
+      "asset": {
+        "filename": "river-tern-03.jpg",
+        "path": "/sample/input/river-tern-03.jpg",
+        "relative_path": "river-tern-03.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF150-600mmF5.6-8 R LM OIS WR",
+          "captured_at": "2025-01-15T08:41:00",
+          "focal_length_mm": 600.0,
+          "aperture": 8.0,
+          "shutter_speed_s": 0.00125,
+          "iso": 1250,
+          "width_px": 7728,
+          "height_px": 5152
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "river-tern-03.jpg",
+        "persona": "wildlife",
+        "score": 8.6,
+        "strengths": [
+          "Long focal length is well matched to a distant wildlife subject.",
+          "Shutter speed is fast enough to support confident subject detail."
+        ],
+        "weaknesses": [
+          "A little more subject isolation would make the frame feel more decisive."
+        ],
+        "recommendation": "keep",
+        "critique": "Strong long-lens coverage and solid motion control make this a convincing wildlife keeper in the sample set.",
+        "context": {
+          "rating": 4,
+          "keywords": [
+            "bird",
+            "flight"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 2,
+      "asset": {
+        "filename": "meadow-heron-01.jpg",
+        "path": "/sample/input/meadow-heron-01.jpg",
+        "relative_path": "meadow-heron-01.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:30:00",
+          "focal_length_mm": 400.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.001,
+          "iso": 1600,
+          "width_px": 3907,
+          "height_px": 2605
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "meadow-heron-01.jpg",
+        "persona": "wildlife",
+        "score": 7.9,
+        "strengths": [
+          "Reach, aperture, and shutter speed create a credible wildlife capture profile.",
+          "Balanced ISO suggests a practical tradeoff for available light."
+        ],
+        "weaknesses": [
+          "The frame would benefit from a slightly more distinctive moment or gesture."
+        ],
+        "recommendation": "keep",
+        "critique": "This sample frame reads as a dependable wildlife keep, with only a small opportunity to strengthen the moment.",
+        "context": {
+          "rating": 4,
+          "keywords": [
+            "wading bird"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "asset": {
+        "filename": "reed-warbler-02.jpg",
+        "path": "/sample/input/reed-warbler-02.jpg",
+        "relative_path": "reed-warbler-02.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:33:00",
+          "focal_length_mm": 356.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.0008,
+          "iso": 2000,
+          "width_px": 3742,
+          "height_px": 2495
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "reed-warbler-02.jpg",
+        "persona": "wildlife",
+        "score": 7.2,
+        "strengths": [
+          "The focal length still gives useful reach for a small subject."
+        ],
+        "weaknesses": [
+          "Higher ISO suggests the file may have less editing headroom.",
+          "Shutter speed is workable but not especially generous for erratic movement."
+        ],
+        "recommendation": "pass",
+        "critique": "A usable sample frame, but the technical margin is thinner than the top keepers.",
+        "context": {
+          "rating": 3,
+          "keywords": [
+            "songbird"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 4,
+      "asset": {
+        "filename": "marsh-egret-04.jpg",
+        "path": "/sample/input/marsh-egret-04.jpg",
+        "relative_path": "marsh-egret-04.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:46:00",
+          "focal_length_mm": 278.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.0005,
+          "iso": 2500,
+          "width_px": 4296,
+          "height_px": 2864
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "marsh-egret-04.jpg",
+        "persona": "wildlife",
+        "score": 6.8,
+        "strengths": [
+          "The exposure choices are plausible for a low-light wildlife scenario."
+        ],
+        "weaknesses": [
+          "Shorter reach weakens subject presence for this persona.",
+          "ISO is elevated enough to reduce confidence in fine detail."
+        ],
+        "recommendation": "pass",
+        "critique": "This sample image is serviceable, but it does not hit the same confidence level as the top-ranked frames.",
+        "context": {
+          "rating": 3,
+          "keywords": [
+            "shorebird"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 5,
+      "asset": {
+        "filename": "oak-perch-05.jpg",
+        "path": "/sample/input/oak-perch-05.jpg",
+        "relative_path": "oak-perch-05.jpg",
+        "exif": {
+          "camera_make": "FUJIFILM",
+          "camera_model": "X-T5",
+          "lens_model": "XF100-400mmF4.5-5.6 R LM OIS WR",
+          "captured_at": "2025-01-15T08:52:00",
+          "focal_length_mm": 400.0,
+          "aperture": 5.6,
+          "shutter_speed_s": 0.001,
+          "iso": 800,
+          "width_px": 4284,
+          "height_px": 2856
+        },
+        "supplemental": null
+      },
+      "critique": {
+        "filename": "oak-perch-05.jpg",
+        "persona": "wildlife",
+        "score": 6.4,
+        "strengths": [
+          "The exposure settings are technically stable."
+        ],
+        "weaknesses": [
+          "The metadata profile looks competent but not distinctive enough for a keep recommendation."
+        ],
+        "recommendation": "pass",
+        "critique": "This sample result stays in pass territory because the technical story is fine without standing out.",
+        "context": {
+          "rating": 2,
+          "keywords": [
+            "perched bird"
+          ]
+        }
+      }
+    }
+  ]
+}
