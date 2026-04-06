@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 from pathlib import Path
+from typing import Optional
 
 from photo_critique_agent.critique import analyze_assets
 from photo_critique_agent.ingestion import inspect_photo_assets
@@ -67,7 +68,7 @@ def _write_jpeg(
     path: Path,
     *,
     color: tuple[int, int, int],
-    exif_fields: dict[int, object] | None = None,
+    exif_fields: Optional[dict[int, object]] = None,
 ) -> None:
     from PIL import Image
 

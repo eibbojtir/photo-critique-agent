@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import csv
 from pathlib import Path
+from typing import Optional
 
 from photo_critique_agent.models.photo import SupplementalMetadata
 
 
-def load_supplemental_metadata(metadata_csv: Path | None) -> dict[str, SupplementalMetadata]:
+def load_supplemental_metadata(
+    metadata_csv: Optional[Path],
+) -> dict[str, SupplementalMetadata]:
     """Load CSV metadata keyed by image filename."""
     if metadata_csv is None:
         return {}

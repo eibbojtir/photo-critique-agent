@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from fractions import Fraction
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from PIL import ExifTags, Image
 
@@ -12,7 +12,7 @@ from photo_critique_agent.models.photo import ExifMetadata
 EXIF_TAG_NAMES = ExifTags.TAGS
 
 
-def extract_exif_metadata(image_path: Path) -> ExifMetadata | None:
+def extract_exif_metadata(image_path: Path) -> Optional[ExifMetadata]:
     """Extract a small normalized EXIF subset from a JPEG."""
     with Image.open(image_path) as image:
         width, height = image.size
@@ -39,14 +39,14 @@ def extract_exif_metadata(image_path: Path) -> ExifMetadata | None:
     )
 
 
-def _string_or_none(value: Any) -> str | None:
+def _string_or_none(value: Any) -> Optional[str]:
     if value is None:
         return None
     text = str(value).strip()
     return text or None
 
 
-def _float_or_none(value: Any) -> float | None:
+def _float_or_none(value: Any) -> Optional[float]:
     if value is None:
         return None
     if isinstance(value, tuple) and len(value) == 2 and value[1]:
@@ -57,18 +57,18 @@ def _float_or_none(value: Any) -> float | None:
         return None
 
 
-def _int_or_none(value: Any) -> int | None:
+def _int_or_none(value: Any) -> Optional[int]:
     numeric_value = _float_or_none(value)
     if numeric_value is None:
         return None
     return int(numeric_value)
 
 
-def _parse_exposure_time(exif_by_name: dict[str, Any]) -> float | None:
+def _parse_exposure_time(exif_by_name: dict[str, Any]) -> Optional[float]:
     return _float_or_none(exif_by_name.get("ExposureTime"))
 
 
-def _parse_captured_at(exif_by_name: dict[str, Any]) -> datetime | None:
+def _parse_captured_at(exif_by_name: dict[str, Any]) -> Optional[datetime]:
     for key in ("DateTimeOriginal", "DateTimeDigitized", "DateTime"):
         value = exif_by_name.get(key)
         if not value:

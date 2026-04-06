@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from photo_critique_agent.critique.evaluator import (
     CritiqueEvaluator,
     MetadataPlaceholderEvaluator,
@@ -12,7 +14,7 @@ from photo_critique_agent.models.photo import PhotoAsset
 def analyze_assets(
     assets: list[PhotoAsset],
     persona: PersonaConfig,
-    evaluator: CritiqueEvaluator | None = None,
+    evaluator: Optional[CritiqueEvaluator] = None,
 ) -> list[CritiqueResult]:
     """Analyze normalized assets with the configured evaluator."""
     active_evaluator = evaluator or MetadataPlaceholderEvaluator()

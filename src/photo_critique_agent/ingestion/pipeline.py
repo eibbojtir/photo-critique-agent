@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Optional
 
 from photo_critique_agent.ingestion.csv_metadata import load_supplemental_metadata
 from photo_critique_agent.ingestion.discovery import discover_images
@@ -10,7 +11,7 @@ from photo_critique_agent.models.photo import PhotoAsset
 
 def inspect_photo_assets(
     images_dir: Path,
-    metadata_csv: Path | None = None,
+    metadata_csv: Optional[Path] = None,
 ) -> list[PhotoAsset]:
     """Build normalized photo assets from files plus optional CSV metadata."""
     supplemental_by_filename = load_supplemental_metadata(metadata_csv)
