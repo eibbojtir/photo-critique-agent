@@ -1,6 +1,9 @@
 # Critique Session Report
 
 Persona: {{ report.persona }}
+{% if report.style %}
+Style lens: {{ report.style }}
+{% endif %}
 
 ## Session Summary
 
@@ -42,6 +45,9 @@ No runners-up in this session.
 {% endif %}
 {% if entry.critique.context.keywords %}
 - Keywords: {{ entry.critique.context.keywords|join(", ") }}
+{% endif %}
+{% if entry.critique.context.style %}
+- Style lens: {{ entry.critique.context.style }}
 {% endif %}
 
 {{ entry.critique.critique }}

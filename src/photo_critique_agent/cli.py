@@ -93,11 +93,16 @@ def analyze_command(
         help="Optional CSV file with supplemental photo metadata.",
     ),
     persona: str = typer.Option(..., "--persona", help="Persona name to use."),
+    style: Optional[str] = typer.Option(
+        None,
+        "--style",
+        help="Optional artist or visual style lens to guide the critique language.",
+    ),
 ) -> None:
     """Analyze normalized photo assets with a placeholder evaluator."""
     assets = inspect_photo_assets(images_dir=images_dir, metadata_csv=metadata)
     persona_config = load_persona(persona)
-    results = analyze_assets(assets=assets, persona=persona_config)
+    results = analyze_assets(assets=assets, persona=persona_config, style=style)
 
     output_dir = Path("output")
     session_report = write_report_outputs(
@@ -105,9 +110,12 @@ def analyze_command(
         critiques=results,
         persona=persona_config,
         output_dir=output_dir,
+        style=style,
     )
 
     typer.echo(f"Analyzed {len(results)} JPEG images with persona '{persona_config.name}'")
+    if style:
+        typer.echo(f"Style lens: {style}")
     typer.echo(f"Keep recommendations: {session_report.summary.keep_count}")
     typer.echo(f"Average score: {session_report.summary.average_score:.2f}")
     typer.echo("Wrote output/results.json")

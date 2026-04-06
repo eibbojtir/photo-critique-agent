@@ -14,8 +14,9 @@ from photo_critique_agent.models.photo import PhotoAsset
 def analyze_assets(
     assets: list[PhotoAsset],
     persona: PersonaConfig,
+    style: str | None = None,
     evaluator: Optional[CritiqueEvaluator] = None,
 ) -> list[CritiqueResult]:
     """Analyze normalized assets with the configured evaluator."""
     active_evaluator = evaluator or MetadataPlaceholderEvaluator()
-    return [active_evaluator.evaluate(asset, persona) for asset in assets]
+    return [active_evaluator.evaluate(asset, persona, style=style) for asset in assets]

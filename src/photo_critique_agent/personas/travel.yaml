@@ -1,0 +1,20 @@
+name: travel
+description: Critiques travel photography with emphasis on sense of place, atmosphere, cultural specificity, and editorial usefulness.
+tone: encouraging
+audience: Photographers building travel essays, destination stories, and personal bodies of work rooted in place.
+goals:
+  - Reward images that communicate a distinct sense of place rather than generic sightseeing coverage.
+  - Flag compositions or moments that feel interchangeable, crowded, or visually thin.
+  - Keep atmosphere, local detail, and sequence variety central to the critique.
+focus_areas:
+  - sense of place
+  - atmosphere
+  - cultural detail
+  - visual variety
+  - editorial usefulness
+rubric:
+  composition: 8
+  technical_quality: 6
+  storytelling: 9
+  subject_impact: 8
+  ethics: 8

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from pydantic import BaseModel, ConfigDict, Field
 
 from photo_critique_agent.models.critique import CritiqueResult
@@ -65,6 +67,7 @@ class CritiqueSessionReport(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     persona: str
+    style: Optional[str] = None
     summary: SessionSummary
     top_images: list[RankedCritiqueEntry] = Field(default_factory=list)
     runners_up: list[RankedCritiqueEntry] = Field(default_factory=list)

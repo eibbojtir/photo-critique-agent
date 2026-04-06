@@ -22,6 +22,16 @@ def test_wildlife_persona_loads_expected_focus() -> None:
     assert persona.rubric.subject_impact == 10
 
 
+def test_travel_and_street_personas_load() -> None:
+    travel = load_persona("travel")
+    street = load_persona("street")
+
+    assert travel.name == "travel"
+    assert "sense of place" in travel.focus_areas
+    assert street.name == "street"
+    assert "visual layering" in street.focus_areas
+
+
 def test_analyze_assets_generates_keep_for_strong_metadata(tmp_path: Path) -> None:
     images_dir = tmp_path / "images"
     images_dir.mkdir()
@@ -52,6 +62,29 @@ def test_analyze_assets_generates_keep_for_strong_metadata(tmp_path: Path) -> No
     assert result.context["rating"] == "5"
     assert result.context["keywords"] == ["eagle", "flight", "banking"]
     assert any("subject isolation" in item.lower() for item in result.strengths)
+
+
+def test_analyze_assets_includes_style_context_when_requested(tmp_path: Path) -> None:
+    images_dir = tmp_path / "images"
+    images_dir.mkdir()
+    _write_jpeg(
+        images_dir / "crosswalk.jpg",
+        color=(90, 90, 110),
+        exif_fields={
+            33434: (1, 1000),
+            37386: (300, 1),
+            34855: 1250,
+        },
+    )
+
+    assets = inspect_photo_assets(images_dir)
+    results = analyze_assets(assets, load_persona("street"), style="Saul Leiter")
+
+    assert len(results) == 1
+    result = results[0]
+    assert result.context["style"] == "Saul Leiter"
+    assert "Saul Leiter-inspired reading" in result.critique
+    assert any("style study lens applied" in item.lower() for item in result.strengths)
 
 
 def test_analyze_assets_generates_pass_for_noisy_slow_metadata(tmp_path: Path) -> None:
@@ -114,6 +147,43 @@ def test_analyze_cli_writes_critique_results(tmp_path: Path) -> None:
         assert payload["entries"][0]["asset"]["filename"] == "otter.jpg"
         assert payload["entries"][0]["critique"]["persona"] == "wildlife"
         assert payload["entries"][0]["critique"]["context"]["rating"] == "4"
+
+
+def test_analyze_cli_writes_style_to_results(tmp_path: Path) -> None:
+    runner = CliRunner()
+
+    with runner.isolated_filesystem(temp_dir=tmp_path):
+        images_dir = Path("images")
+        images_dir.mkdir()
+        _write_jpeg(
+            images_dir / "street-scene.jpg",
+            color=(110, 100, 90),
+            exif_fields={
+                33434: (1, 500),
+                37386: (135, 1),
+                34855: 1600,
+            },
+        )
+
+        result = runner.invoke(
+            app,
+            [
+                "analyze",
+                str(images_dir),
+                "--persona",
+                "street",
+                "--style",
+                "Saul Leiter",
+            ],
+        )
+
+        assert result.exit_code == 0
+        assert "Style lens: Saul Leiter" in result.stdout
+
+        payload = json.loads(Path("output/results.json").read_text(encoding="utf-8"))
+        assert payload["persona"] == "street"
+        assert payload["style"] == "Saul Leiter"
+        assert payload["entries"][0]["critique"]["context"]["style"] == "Saul Leiter"
 
 
 def _write_jpeg(

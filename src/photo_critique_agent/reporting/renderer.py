@@ -19,6 +19,7 @@ def build_session_report(
     assets: list[PhotoAsset],
     critiques: list[CritiqueResult],
     persona: PersonaConfig,
+    style: str | None = None,
 ) -> CritiqueSessionReport:
     """Pair assets with critiques, rank them, and compute session summary."""
     critiques_by_filename = {critique.filename: critique for critique in critiques}
@@ -54,6 +55,7 @@ def build_session_report(
     )
     return CritiqueSessionReport(
         persona=persona.name,
+        style=style,
         summary=summary,
         top_images=entries[:3],
         runners_up=entries[3:],
@@ -66,10 +68,16 @@ def write_report_outputs(
     critiques: list[CritiqueResult],
     persona: PersonaConfig,
     output_dir: Path,
+    style: str | None = None,
 ) -> CritiqueSessionReport:
     """Write session JSON, Markdown, and HTML outputs into the output directory."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    session_report = build_session_report(assets=assets, critiques=critiques, persona=persona)
+    session_report = build_session_report(
+        assets=assets,
+        critiques=critiques,
+        persona=persona,
+        style=style,
+    )
 
     environment = _build_template_environment()
     markdown = environment.get_template("report.md.j2").render(report=session_report)

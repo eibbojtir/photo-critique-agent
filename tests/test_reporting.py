@@ -44,23 +44,27 @@ def test_write_report_outputs_creates_json_markdown_and_html(tmp_path: Path) -> 
 
     persona = load_persona("wildlife")
     assets = inspect_photo_assets(images_dir, metadata_csv)
-    critiques = analyze_assets(assets, persona)
+    critiques = analyze_assets(assets, persona, style="Saul Leiter")
     output_dir = tmp_path / "output"
 
-    write_report_outputs(assets, critiques, persona, output_dir)
+    write_report_outputs(assets, critiques, persona, output_dir, style="Saul Leiter")
 
     results_payload = json.loads((output_dir / "results.json").read_text(encoding="utf-8"))
     markdown = (output_dir / "critique_report.md").read_text(encoding="utf-8")
     html = (output_dir / "critique_report.html").read_text(encoding="utf-8")
 
     assert results_payload["summary"]["total_images"] == 1
+    assert results_payload["style"] == "Saul Leiter"
     assert results_payload["entries"][0]["asset"]["filename"] == "warbler.jpg"
     assert results_payload["entries"][0]["critique"]["context"]["rating"] == "5"
+    assert results_payload["entries"][0]["critique"]["context"]["style"] == "Saul Leiter"
     assert "## Session Summary" in markdown
     assert "## Top 3 Images" in markdown
+    assert "Style lens: Saul Leiter" in markdown
     assert "warbler.jpg" in markdown
     assert "<h2>Ranked Gallery</h2>" in html
     assert "score-badge" in html
+    assert "Style lens: Saul Leiter" in html
     assert "warbler.jpg" in html
 
 

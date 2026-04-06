@@ -8,7 +8,7 @@ This initial scaffold includes:
 
 - A CLI entrypoint named `photo-critique`
 - Core Pydantic models for jobs, personas, photos, and reports
-- Bundled YAML persona support with one persona: `wildlife`
+- Bundled YAML persona support with personas including `wildlife`, `travel`, `street`, and more
 - A placeholder Jinja2 Markdown template
 - Unit tests covering the core models and persona loading
 
@@ -50,9 +50,10 @@ Analyze a folder with the placeholder evaluator and a bundled persona:
 ```bash
 photo-critique analyze ./photos --persona wildlife
 photo-critique analyze ./photos --metadata ./metadata.csv --persona wildlife
+photo-critique analyze ./photos --persona street --style "Saul Leiter"
 ```
 
-The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes a local output bundle:
+The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes a local output bundle. An optional `--style` lens can nudge the critique language toward a named artist or visual influence without changing the underlying persona schema:
 
 - `output/results.json`
 - `output/critique_report.md`

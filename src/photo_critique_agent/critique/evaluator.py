@@ -11,14 +11,24 @@ class CritiqueEvaluator(ABC):
     """Interface for metadata-only or future model-backed evaluators."""
 
     @abstractmethod
-    def evaluate(self, asset: PhotoAsset, persona: PersonaConfig) -> CritiqueResult:
+    def evaluate(
+        self,
+        asset: PhotoAsset,
+        persona: PersonaConfig,
+        style: str | None = None,
+    ) -> CritiqueResult:
         """Return a structured critique for one photo asset."""
 
 
 class MetadataPlaceholderEvaluator(CritiqueEvaluator):
     """Deterministic scoring based on EXIF and supplemental metadata only."""
 
-    def evaluate(self, asset: PhotoAsset, persona: PersonaConfig) -> CritiqueResult:
+    def evaluate(
+        self,
+        asset: PhotoAsset,
+        persona: PersonaConfig,
+        style: str | None = None,
+    ) -> CritiqueResult:
         exif = asset.exif
         supplemental_values = asset.supplemental.values if asset.supplemental else {}
 
@@ -73,6 +83,10 @@ class MetadataPlaceholderEvaluator(CritiqueEvaluator):
             strengths.append(f"Existing rating context: {rating}.")
         if keywords:
             strengths.append(f"Keywords emphasize {', '.join(keywords[:3])}.")
+        if style:
+            strengths.append(
+                f"Style study lens applied: {style}, with feedback nudged toward that artist's visual priorities."
+            )
 
         score = max(0.0, min(10.0, round(score, 1)))
         recommendation = "keep" if score >= 6.5 else "pass"
@@ -93,6 +107,7 @@ class MetadataPlaceholderEvaluator(CritiqueEvaluator):
             recommendation=recommendation,
             rating=rating,
             keywords=keywords,
+            style=style,
         )
 
         return CritiqueResult(
@@ -106,6 +121,7 @@ class MetadataPlaceholderEvaluator(CritiqueEvaluator):
             context={
                 "rating": rating,
                 "keywords": keywords,
+                "style": style,
             },
         )
 
@@ -130,6 +146,7 @@ def _build_critique_paragraph(
     recommendation: str,
     rating: object,
     keywords: list[str],
+    style: str | None,
 ) -> str:
     focal_length = asset.exif.focal_length_mm if asset.exif else None
     shutter_speed = asset.exif.shutter_speed_s if asset.exif else None
@@ -148,4 +165,8 @@ def _build_critique_paragraph(
         details.append(f"CSV context includes a prior rating of {rating}.")
     if keywords:
         details.append(f"Keywords noted for this frame: {', '.join(keywords)}.")
+    if style:
+        details.append(
+            f"Using a {style}-inspired reading, the critique leans toward the visual traits associated with that body of work."
+        )
     return " ".join(details)

@@ -113,7 +113,10 @@
       <section class="hero">
         <p class="rank">Persona</p>
         <h1>{{ report.persona|capitalize }} Critique Session</h1>
-        <p>Metadata-driven placeholder analysis for a local demo workflow.</p>
+        <p>
+          Metadata-driven placeholder analysis for a local demo workflow.
+          {% if report.style %}Style lens: {{ report.style }}.{% endif %}
+        </p>
         <div class="summary">
           <div class="panel">
             <strong>{{ report.summary.total_images }}</strong>
@@ -167,6 +170,7 @@
           <p class="meta">
             {% if entry.critique.context.rating %}Rating {{ entry.critique.context.rating }}{% else %}No rating{% endif %}
             {% if entry.critique.context.keywords %} | Keywords: {{ entry.critique.context.keywords|join(", ") }}{% endif %}
+            {% if entry.critique.context.style %} | Style lens: {{ entry.critique.context.style }}{% endif %}
           </p>
           <p>{{ entry.critique.critique }}</p>
           <div class="split">
