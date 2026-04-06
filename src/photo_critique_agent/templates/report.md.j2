@@ -1,6 +1,67 @@
-# {{ report.filename }}
+# Critique Session Report
 
 Persona: {{ report.persona }}
 
-This template is scaffolded for later report rendering work.
+## Session Summary
 
+- Images reviewed: {{ report.summary.total_images }}
+- Keep recommendations: {{ report.summary.keep_count }}
+- Pass recommendations: {{ report.summary.pass_count }}
+- Average score: {{ "%.2f"|format(report.summary.average_score) }}
+
+## Top 3 Images
+
+{% for entry in report.top_images %}
+### #{{ entry.rank }} {{ entry.asset.filename }} ({{ "%.1f"|format(entry.critique.score) }})
+
+- Recommendation: {{ entry.critique.recommendation }}
+- Strengths: {{ entry.critique.strengths|join("; ") if entry.critique.strengths else "None noted" }}
+- Weaknesses: {{ entry.critique.weaknesses|join("; ") if entry.critique.weaknesses else "None noted" }}
+
+{% endfor %}
+## Runners-up
+
+{% if report.runners_up %}
+{% for entry in report.runners_up %}
+- #{{ entry.rank }} {{ entry.asset.filename }} ({{ "%.1f"|format(entry.critique.score) }}) - {{ entry.critique.recommendation }}
+{% endfor %}
+{% else %}
+No runners-up in this session.
+{% endif %}
+
+## Per-image Critiques
+
+{% for entry in report.entries %}
+### #{{ entry.rank }} {{ entry.asset.filename }}
+
+- Score: {{ "%.1f"|format(entry.critique.score) }}
+- Recommendation: {{ entry.critique.recommendation }}
+- Relative path: {{ entry.asset.relative_path or entry.asset.filename }}
+{% if entry.critique.context.rating %}
+- Rating: {{ entry.critique.context.rating }}
+{% endif %}
+{% if entry.critique.context.keywords %}
+- Keywords: {{ entry.critique.context.keywords|join(", ") }}
+{% endif %}
+
+{{ entry.critique.critique }}
+
+**Strengths**
+{% if entry.critique.strengths %}
+{% for strength in entry.critique.strengths %}
+- {{ strength }}
+{% endfor %}
+{% else %}
+- None noted
+{% endif %}
+
+**Weaknesses**
+{% if entry.critique.weaknesses %}
+{% for weakness in entry.critique.weaknesses %}
+- {{ weakness }}
+{% endfor %}
+{% else %}
+- None noted
+{% endif %}
+
+{% endfor %}

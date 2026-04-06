@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Critique Report</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f4ef;
+        --panel: #fffdf8;
+        --border: #d9d0c3;
+        --text: #1f1b16;
+        --muted: #6d6255;
+        --accent: #2f6c5b;
+        --accent-soft: #e4f0eb;
+        --pass: #8a4f3d;
+        --pass-soft: #f6e8e1;
+        --shadow: 0 14px 28px rgba(45, 36, 25, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #fbf9f4 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+      h1, h2, h3, p { margin-top: 0; }
+      .hero, .panel, .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+      .hero {
+        padding: 28px;
+        margin-bottom: 24px;
+      }
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+      }
+      .panel {
+        padding: 18px;
+      }
+      .summary .panel strong {
+        display: block;
+        font-size: 1.7rem;
+        margin-bottom: 6px;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 24px 0 32px;
+      }
+      .rank {
+        color: var(--muted);
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+      .score-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      .score-badge.pass {
+        background: var(--pass-soft);
+        color: var(--pass);
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .cards {
+        display: grid;
+        gap: 18px;
+      }
+      .card {
+        padding: 22px;
+      }
+      ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      @media (max-width: 640px) {
+        main { padding: 20px 14px 40px; }
+        .hero, .panel, .card { border-radius: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="rank">Persona</p>
+        <h1>{{ report.persona|capitalize }} Critique Session</h1>
+        <p>Metadata-driven placeholder analysis for a local demo workflow.</p>
+        <div class="summary">
+          <div class="panel">
+            <strong>{{ report.summary.total_images }}</strong>
+            <span>Images reviewed</span>
+          </div>
+          <div class="panel">
+            <strong>{{ report.summary.keep_count }}</strong>
+            <span>Keep picks</span>
+          </div>
+          <div class="panel">
+            <strong>{{ report.summary.pass_count }}</strong>
+            <span>Passes</span>
+          </div>
+          <div class="panel">
+            <strong>{{ "%.2f"|format(report.summary.average_score) }}</strong>
+            <span>Average score</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Ranked Gallery</h2>
+        <div class="gallery">
+          {% for entry in report.entries %}
+          <article class="panel">
+            <p class="rank">#{{ entry.rank }}</p>
+            <h3>{{ entry.asset.filename }}</h3>
+            <p>
+              <span class="score-badge{% if entry.critique.recommendation == 'pass' %} pass{% endif %}">
+                {{ "%.1f"|format(entry.critique.score) }} / {{ entry.critique.recommendation }}
+              </span>
+            </p>
+            <p class="meta">{{ entry.asset.relative_path or entry.asset.filename }}</p>
+            <p>{{ entry.critique.critique }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="cards">
+        <h2>Per-image Critiques</h2>
+        {% for entry in report.entries %}
+        <article class="card">
+          <p class="rank">#{{ entry.rank }}</p>
+          <h3>{{ entry.asset.filename }}</h3>
+          <p>
+            <span class="score-badge{% if entry.critique.recommendation == 'pass' %} pass{% endif %}">
+              {{ "%.1f"|format(entry.critique.score) }} / {{ entry.critique.recommendation }}
+            </span>
+          </p>
+          <p class="meta">
+            {% if entry.critique.context.rating %}Rating {{ entry.critique.context.rating }}{% else %}No rating{% endif %}
+            {% if entry.critique.context.keywords %} | Keywords: {{ entry.critique.context.keywords|join(", ") }}{% endif %}
+          </p>
+          <p>{{ entry.critique.critique }}</p>
+          <div class="split">
+            <section>
+              <h4>Strengths</h4>
+              <ul>
+                {% if entry.critique.strengths %}
+                {% for strength in entry.critique.strengths %}
+                <li>{{ strength }}</li>
+                {% endfor %}
+                {% else %}
+                <li>None noted</li>
+                {% endif %}
+              </ul>
+            </section>
+            <section>
+              <h4>Weaknesses</h4>
+              <ul>
+                {% if entry.critique.weaknesses %}
+                {% for weakness in entry.critique.weaknesses %}
+                <li>{{ weakness }}</li>
+                {% endfor %}
+                {% else %}
+                <li>None noted</li>
+                {% endif %}
+              </ul>
+            </section>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+    </main>
+  </body>
+</html>

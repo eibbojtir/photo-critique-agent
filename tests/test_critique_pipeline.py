@@ -105,12 +105,14 @@ def test_analyze_cli_writes_critique_results(tmp_path: Path) -> None:
 
         assert result.exit_code == 0
         assert "Analyzed 1 JPEG images with persona 'wildlife'" in result.stdout
-        assert "Wrote critique results to output/critique_results.json" in result.stdout
+        assert "Wrote output/results.json" in result.stdout
+        assert "Wrote output/critique_report.md" in result.stdout
+        assert "Wrote output/critique_report.html" in result.stdout
 
-        payload = json.loads(Path("output/critique_results.json").read_text(encoding="utf-8"))
-        assert payload[0]["filename"] == "otter.jpg"
-        assert payload[0]["persona"] == "wildlife"
-        assert payload[0]["context"]["rating"] == "4"
+        payload = json.loads(Path("output/results.json").read_text(encoding="utf-8"))
+        assert payload["entries"][0]["asset"]["filename"] == "otter.jpg"
+        assert payload["entries"][0]["critique"]["persona"] == "wildlife"
+        assert payload["entries"][0]["critique"]["context"]["rating"] == "4"
 
 
 def _write_jpeg(

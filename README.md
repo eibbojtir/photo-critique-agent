@@ -52,7 +52,13 @@ photo-critique analyze ./photos --persona wildlife
 photo-critique analyze ./photos --metadata ./metadata.csv --persona wildlife
 ```
 
-The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes structured critique output to `output/critique_results.json`.
+The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes a demo-ready output bundle:
+
+- `output/results.json`
+- `output/critique_report.md`
+- `output/critique_report.html`
+
+Open `output/critique_report.html` directly in a browser for a simple local demo.
 
 ## Project Layout
 

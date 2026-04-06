@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from photo_critique_agent.models.critique import CritiqueResult
+from photo_critique_agent.models.photo import PhotoAsset
+
 
 class CritiqueFinding(BaseModel):
     """Single observation produced by the critique pipeline."""
@@ -34,3 +37,35 @@ class ReportBundle(BaseModel):
 
     reports: list[CritiqueReport] = Field(default_factory=list)
 
+
+class SessionSummary(BaseModel):
+    """Session-level rollup shown in generated reports."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    total_images: int = Field(ge=0)
+    keep_count: int = Field(ge=0)
+    pass_count: int = Field(ge=0)
+    average_score: float = Field(ge=0, le=10)
+
+
+class RankedCritiqueEntry(BaseModel):
+    """Photo asset paired with its critique result for reporting."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    rank: int = Field(ge=1)
+    asset: PhotoAsset
+    critique: CritiqueResult
+
+
+class CritiqueSessionReport(BaseModel):
+    """Serializable bundle used for JSON, Markdown, and HTML outputs."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    persona: str
+    summary: SessionSummary
+    top_images: list[RankedCritiqueEntry] = Field(default_factory=list)
+    runners_up: list[RankedCritiqueEntry] = Field(default_factory=list)
+    entries: list[RankedCritiqueEntry] = Field(default_factory=list)

@@ -10,6 +10,7 @@ from photo_critique_agent.critique import analyze_assets
 from photo_critique_agent.ingestion import inspect_photo_assets
 from photo_critique_agent.models.job import CritiqueJobConfig
 from photo_critique_agent.personas import load_persona
+from photo_critique_agent.reporting import write_report_outputs
 
 app = typer.Typer(
     help="Local-first photo critique agent for structured image review workflows."
@@ -99,22 +100,19 @@ def analyze_command(
     results = analyze_assets(assets=assets, persona=persona_config)
 
     output_dir = Path("output")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / "critique_results.json"
-    output_path.write_text(
-        json.dumps([result.model_dump(mode="json") for result in results], indent=2) + "\n",
-        encoding="utf-8",
+    session_report = write_report_outputs(
+        assets=assets,
+        critiques=results,
+        persona=persona_config,
+        output_dir=output_dir,
     )
 
-    keep_count = sum(1 for result in results if result.recommendation == "keep")
-    average_score = round(
-        sum(result.score for result in results) / len(results), 2
-    ) if results else 0.0
-
     typer.echo(f"Analyzed {len(results)} JPEG images with persona '{persona_config.name}'")
-    typer.echo(f"Keep recommendations: {keep_count}")
-    typer.echo(f"Average score: {average_score:.2f}")
-    typer.echo(f"Wrote critique results to {output_path}")
+    typer.echo(f"Keep recommendations: {session_report.summary.keep_count}")
+    typer.echo(f"Average score: {session_report.summary.average_score:.2f}")
+    typer.echo("Wrote output/results.json")
+    typer.echo("Wrote output/critique_report.md")
+    typer.echo("Wrote output/critique_report.html")
 
 
 if __name__ == "__main__":
