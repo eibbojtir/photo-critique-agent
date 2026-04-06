@@ -12,7 +12,7 @@ This initial scaffold includes:
 - A placeholder Jinja2 Markdown template
 - Unit tests covering the core models and persona loading
 
-Implementation of final critique generation is still deferred, but the project now includes a local ingestion and inspection workflow for JPEG assets.
+The current implementation includes a deterministic first-pass critique pipeline based on metadata only. Actual vision-model evaluation is still deferred.
 
 ## Setup
 
@@ -44,6 +44,15 @@ photo-critique inspect ./photos --metadata ./metadata.csv
 ```
 
 The inspect command prints a short summary, extracts EXIF metadata when available, and normalizes each discovered image into a `PhotoAsset` payload.
+
+Analyze a folder with the placeholder evaluator and a bundled persona:
+
+```bash
+photo-critique analyze ./photos --persona wildlife
+photo-critique analyze ./photos --metadata ./metadata.csv --persona wildlife
+```
+
+The analyze command loads the selected YAML persona, runs a deterministic metadata-based evaluator, and writes structured critique output to `output/critique_results.json`.
 
 ## Project Layout
 
