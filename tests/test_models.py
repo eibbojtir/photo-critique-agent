@@ -5,10 +5,11 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from photo_critique_agent.models.critique import AnalysisOptions, CritiqueContext
 from photo_critique_agent.models.job import CritiqueJobConfig
 from photo_critique_agent.models.persona import PersonaConfig, PersonaRubric
 from photo_critique_agent.models.report import CritiqueFinding, CritiqueReport
-from photo_critique_agent.personas import load_persona
+from photo_critique_agent.personas import list_personas, load_persona
 
 
 def test_job_config_accepts_existing_paths(tmp_path: Path) -> None:
@@ -86,3 +87,28 @@ def test_report_schema_accepts_valid_payload() -> None:
 
     assert report.findings[0].severity == "strong"
 
+
+def test_analysis_options_normalizes_valid_style() -> None:
+    options = AnalysisOptions(style="  Saul Leiter  ")
+
+    assert options.style == "Saul Leiter"
+
+
+def test_analysis_options_rejects_invalid_style_characters() -> None:
+    with pytest.raises(ValidationError):
+        AnalysisOptions(style="<script>")
+
+
+def test_critique_context_defaults_are_typed() -> None:
+    context = CritiqueContext()
+
+    assert context.rating is None
+    assert context.keywords == []
+    assert context.style is None
+
+
+def test_list_personas_includes_new_personas() -> None:
+    personas = list_personas()
+
+    assert "street" in personas
+    assert "travel" in personas

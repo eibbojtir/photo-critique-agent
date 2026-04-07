@@ -61,6 +61,14 @@ The analyze command loads the selected YAML persona, runs a deterministic metada
 
 Open `output/critique_report.html` directly in a browser for a simple local demo.
 
+## Style Lens Guidance
+
+The `--style` option is intended as an influence-study aid, not an impersonation feature.
+
+- Use it to ask how a frame might be strengthened toward the visual priorities associated with a historical body of work.
+- Do not interpret the output as a literal simulation, endorsement, or first-person critique from a living or historical artist.
+- The CLI validates `--style` as a short plain-text label so reports stay predictable and safe to render in local Markdown and HTML output.
+
 Generated files under `output/` are intentionally ignored by git so local image metadata and file paths do not get committed by accident.
 
 For documentation and public-repo examples, use the anonymized sample bundle in `examples/sample_output/`:

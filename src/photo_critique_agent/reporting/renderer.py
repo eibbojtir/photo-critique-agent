@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Optional
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from photo_critique_agent.models.critique import CritiqueResult
+from photo_critique_agent.models.critique import AnalysisOptions, CritiqueResult
 from photo_critique_agent.models.persona import PersonaConfig
 from photo_critique_agent.models.photo import PhotoAsset
 from photo_critique_agent.models.report import (
@@ -19,7 +20,7 @@ def build_session_report(
     assets: list[PhotoAsset],
     critiques: list[CritiqueResult],
     persona: PersonaConfig,
-    style: str | None = None,
+    options: Optional[AnalysisOptions] = None,
 ) -> CritiqueSessionReport:
     """Pair assets with critiques, rank them, and compute session summary."""
     critiques_by_filename = {critique.filename: critique for critique in critiques}
@@ -55,7 +56,7 @@ def build_session_report(
     )
     return CritiqueSessionReport(
         persona=persona.name,
-        style=style,
+        style=(options.style if options else None),
         summary=summary,
         top_images=entries[:3],
         runners_up=entries[3:],
@@ -68,7 +69,7 @@ def write_report_outputs(
     critiques: list[CritiqueResult],
     persona: PersonaConfig,
     output_dir: Path,
-    style: str | None = None,
+    options: Optional[AnalysisOptions] = None,
 ) -> CritiqueSessionReport:
     """Write session JSON, Markdown, and HTML outputs into the output directory."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -76,7 +77,7 @@ def write_report_outputs(
         assets=assets,
         critiques=critiques,
         persona=persona,
-        style=style,
+        options=options,
     )
 
     environment = _build_template_environment()

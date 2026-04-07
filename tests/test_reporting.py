@@ -7,6 +7,7 @@ from typing import Optional
 
 from photo_critique_agent.critique import analyze_assets
 from photo_critique_agent.ingestion import inspect_photo_assets
+from photo_critique_agent.models.critique import AnalysisOptions
 from photo_critique_agent.personas import load_persona
 from photo_critique_agent.reporting import build_session_report, write_report_outputs
 
@@ -44,10 +45,16 @@ def test_write_report_outputs_creates_json_markdown_and_html(tmp_path: Path) -> 
 
     persona = load_persona("wildlife")
     assets = inspect_photo_assets(images_dir, metadata_csv)
-    critiques = analyze_assets(assets, persona, style="Saul Leiter")
+    critiques = analyze_assets(assets, persona, options=AnalysisOptions(style="Saul Leiter"))
     output_dir = tmp_path / "output"
 
-    write_report_outputs(assets, critiques, persona, output_dir, style="Saul Leiter")
+    write_report_outputs(
+        assets,
+        critiques,
+        persona,
+        output_dir,
+        options=AnalysisOptions(style="Saul Leiter"),
+    )
 
     results_payload = json.loads((output_dir / "results.json").read_text(encoding="utf-8"))
     markdown = (output_dir / "critique_report.md").read_text(encoding="utf-8")

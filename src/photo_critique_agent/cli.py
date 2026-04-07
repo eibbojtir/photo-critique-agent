@@ -5,8 +5,10 @@ from typing import Optional
 
 import json
 import typer
+from pydantic import ValidationError
 
 from photo_critique_agent.critique import analyze_assets
+from photo_critique_agent.models.critique import AnalysisOptions
 from photo_critique_agent.ingestion import inspect_photo_assets
 from photo_critique_agent.models.job import CritiqueJobConfig
 from photo_critique_agent.personas import load_persona
@@ -28,6 +30,11 @@ def critique(
     persona: str = typer.Option("wildlife", "--persona", help="Persona name to use."),
 ) -> None:
     """Validate inputs and print the scaffolded job configuration."""
+    try:
+        load_persona(persona)
+    except FileNotFoundError as exc:
+        raise typer.BadParameter(str(exc), param_hint="--persona") from exc
+
     job = CritiqueJobConfig(
         image_dir=image_dir,
         metadata_csv=metadata_csv,
@@ -101,8 +108,17 @@ def analyze_command(
 ) -> None:
     """Analyze normalized photo assets with a placeholder evaluator."""
     assets = inspect_photo_assets(images_dir=images_dir, metadata_csv=metadata)
-    persona_config = load_persona(persona)
-    results = analyze_assets(assets=assets, persona=persona_config, style=style)
+    try:
+        options = AnalysisOptions(style=style)
+    except ValidationError as exc:
+        raise typer.BadParameter(_first_validation_message(exc), param_hint="--style") from exc
+
+    try:
+        persona_config = load_persona(persona)
+    except FileNotFoundError as exc:
+        raise typer.BadParameter(str(exc), param_hint="--persona") from exc
+
+    results = analyze_assets(assets=assets, persona=persona_config, options=options)
 
     output_dir = Path("output")
     session_report = write_report_outputs(
@@ -110,17 +126,29 @@ def analyze_command(
         critiques=results,
         persona=persona_config,
         output_dir=output_dir,
-        style=style,
+        options=options,
     )
 
     typer.echo(f"Analyzed {len(results)} JPEG images with persona '{persona_config.name}'")
-    if style:
-        typer.echo(f"Style lens: {style}")
+    if options.style:
+        typer.echo(f"Style lens: {options.style}")
     typer.echo(f"Keep recommendations: {session_report.summary.keep_count}")
     typer.echo(f"Average score: {session_report.summary.average_score:.2f}")
     typer.echo("Wrote output/results.json")
     typer.echo("Wrote output/critique_report.md")
     typer.echo("Wrote output/critique_report.html")
+
+def _first_validation_message(error: ValidationError) -> str:
+    """Return a concise first-line validation message for CLI output."""
+    details = error.errors()
+    if not details:
+        return str(error)
+    first_error = details[0]
+    message = first_error.get("msg")
+    if message:
+        text = str(message)
+        return text.removeprefix("Value error, ")
+    return str(error)
 
 
 if __name__ == "__main__":

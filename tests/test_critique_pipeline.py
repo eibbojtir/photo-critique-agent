@@ -5,11 +5,13 @@ import json
 from pathlib import Path
 from typing import Optional
 
+import pytest
 from typer.testing import CliRunner
 
 from photo_critique_agent.cli import app
 from photo_critique_agent.critique import analyze_assets
 from photo_critique_agent.ingestion import inspect_photo_assets
+from photo_critique_agent.models.critique import AnalysisOptions
 from photo_critique_agent.personas import load_persona
 
 
@@ -59,8 +61,8 @@ def test_analyze_assets_generates_keep_for_strong_metadata(tmp_path: Path) -> No
     result = results[0]
     assert result.score >= 7.0
     assert result.recommendation == "keep"
-    assert result.context["rating"] == "5"
-    assert result.context["keywords"] == ["eagle", "flight", "banking"]
+    assert result.context.rating == "5"
+    assert result.context.keywords == ["eagle", "flight", "banking"]
     assert any("subject isolation" in item.lower() for item in result.strengths)
 
 
@@ -78,11 +80,15 @@ def test_analyze_assets_includes_style_context_when_requested(tmp_path: Path) ->
     )
 
     assets = inspect_photo_assets(images_dir)
-    results = analyze_assets(assets, load_persona("street"), style="Saul Leiter")
+    results = analyze_assets(
+        assets,
+        load_persona("street"),
+        options=AnalysisOptions(style="Saul Leiter"),
+    )
 
     assert len(results) == 1
     result = results[0]
-    assert result.context["style"] == "Saul Leiter"
+    assert result.context.style == "Saul Leiter"
     assert "Saul Leiter-inspired reading" in result.critique
     assert any("style study lens applied" in item.lower() for item in result.strengths)
 
@@ -184,6 +190,54 @@ def test_analyze_cli_writes_style_to_results(tmp_path: Path) -> None:
         assert payload["persona"] == "street"
         assert payload["style"] == "Saul Leiter"
         assert payload["entries"][0]["critique"]["context"]["style"] == "Saul Leiter"
+
+
+def test_analyze_cli_rejects_unknown_persona(tmp_path: Path) -> None:
+    runner = CliRunner()
+
+    with runner.isolated_filesystem(temp_dir=tmp_path):
+        images_dir = Path("images")
+        images_dir.mkdir()
+        _write_jpeg(images_dir / "frame.jpg", color=(100, 100, 100))
+
+        result = runner.invoke(
+            app,
+            ["analyze", str(images_dir), "--persona", "unknown-persona"],
+        )
+
+        assert result.exit_code != 0
+        assert "Unknown persona 'unknown-persona'" in result.stdout
+        assert "commercial" in result.stdout
+        assert "wildlife" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("style", "expected"),
+    [
+        ("Saul\x07Leiter", "Style must not contain control characters."),
+        ("<script>", "Style may only contain letters, numbers, spaces"),
+        (" " * 3, "Style lens:"),
+    ],
+)
+def test_style_validation_and_normalization(tmp_path: Path, style: str, expected: str) -> None:
+    runner = CliRunner()
+
+    with runner.isolated_filesystem(temp_dir=tmp_path):
+        images_dir = Path("images")
+        images_dir.mkdir()
+        _write_jpeg(images_dir / "frame.jpg", color=(100, 100, 100))
+
+        result = runner.invoke(
+            app,
+            ["analyze", str(images_dir), "--persona", "street", "--style", style],
+        )
+
+        if style.strip():
+            assert result.exit_code != 0
+            assert expected in result.stdout
+        else:
+            assert result.exit_code == 0
+            assert expected not in result.stdout
 
 
 def _write_jpeg(
