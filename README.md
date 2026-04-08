@@ -1,6 +1,16 @@
 # Photo Critique Agent
 
-Local-first Python project scaffold for reviewing folders of JPEG images with persona-driven critique output.
+Local-first CLI for reviewing folders of JPEG images with persona-driven critique output, ranked reports, and optional artist-influence guidance.
+
+It is currently optimized for local experimentation and workflow design: ingest a folder of photos, inspect EXIF and CSV metadata, run a persona-specific critique pass, and generate JSON, Markdown, and HTML reports you can review or share.
+
+## What It Does
+
+- Inspects JPEG folders and normalizes metadata into a stable asset payload
+- Analyzes image sets with photography personas like `wildlife`, `travel`, `street`, and `documentary`
+- Generates ranked session outputs in JSON, Markdown, and HTML
+- Supports an optional `--style` lens for influence-study critique such as `Saul Leiter`
+- Keeps generated output local by default so real photo metadata is not committed accidentally
 
 ## Current Scope
 
@@ -13,6 +23,18 @@ This initial scaffold includes:
 - Unit tests covering the core models and persona loading
 
 The current implementation includes a deterministic first-pass critique pipeline based on metadata only. Actual vision-model evaluation is still deferred.
+
+## Quick Start
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+
+photo-critique inspect ./photos
+photo-critique analyze ./photos --persona wildlife
+photo-critique analyze ./photos --persona street --style "Saul Leiter"
+```
 
 ## Setup
 
@@ -61,6 +83,17 @@ The analyze command loads the selected YAML persona, runs a deterministic metada
 
 Open `output/critique_report.html` directly in a browser for a simple local demo.
 
+## Sample Report Preview
+
+![Sample critique report preview](examples/assets/report-preview.svg)
+
+You can inspect the committed anonymized examples here:
+
+- `examples/sample_output/results.json`
+- `examples/sample_output/critique_report.md`
+- `examples/sample_output/critique_report.html`
+- `examples/sample_output/assets.json`
+
 ## Style Lens Guidance
 
 The `--style` option is intended as an influence-study aid, not an impersonation feature.
@@ -70,13 +103,6 @@ The `--style` option is intended as an influence-study aid, not an impersonation
 - The CLI validates `--style` as a short plain-text label so reports stay predictable and safe to render in local Markdown and HTML output.
 
 Generated files under `output/` are intentionally ignored by git so local image metadata and file paths do not get committed by accident.
-
-For documentation and public-repo examples, use the anonymized sample bundle in `examples/sample_output/`:
-
-- `examples/sample_output/results.json`
-- `examples/sample_output/critique_report.md`
-- `examples/sample_output/critique_report.html`
-- `examples/sample_output/assets.json`
 
 ## Project Layout
 
@@ -88,6 +114,26 @@ src/photo_critique_agent/
   templates/
 tests/
 ```
+
+## Roadmap
+
+Near term:
+
+- Improve critique quality so personas feel more distinct and less repetitive
+- Run larger real-world folder tests and tighten output ergonomics based on those sessions
+- Add stronger benchmark fixtures for regression testing and ranking evaluation
+
+Next stage:
+
+- Introduce real image understanding instead of metadata-only critique
+- Add better session management and configurable output destinations
+- Expand persona/style behavior without turning style guidance into artist impersonation
+
+Longer term:
+
+- Package a smoother install and onboarding flow
+- Consider a lightweight UI once the CLI workflow feels stable
+- Add repeatable evaluation datasets for ranking and critique usefulness
 
 ## Testing
 

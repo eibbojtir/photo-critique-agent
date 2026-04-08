@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Sample critique report preview</title>
+  <desc id="desc">Stylized preview of the generated HTML report for the Photo Critique Agent project.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#faf6ef"/>
+      <stop offset="100%" stop-color="#ece2d4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#5a4a36" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect x="48" y="44" width="1104" height="632" rx="28" fill="#f8f2e9" opacity="0.75"/>
+
+  <g filter="url(#shadow)">
+    <rect x="100" y="82" width="1000" height="556" rx="28" fill="#fffdf8" stroke="#d9d0c3" stroke-width="2"/>
+  </g>
+
+  <text x="144" y="142" fill="#6d6255" font-size="22" font-family="Georgia, serif" letter-spacing="2">PERSONA</text>
+  <text x="144" y="190" fill="#1f1b16" font-size="44" font-family="Georgia, serif">Wildlife Critique Session</text>
+  <text x="144" y="226" fill="#6d6255" font-size="22" font-family="Georgia, serif">An anonymized preview of the generated report output.</text>
+
+  <g>
+    <rect x="144" y="264" width="184" height="108" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+    <rect x="348" y="264" width="184" height="108" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+    <rect x="552" y="264" width="184" height="108" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+    <rect x="756" y="264" width="184" height="108" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+
+    <text x="170" y="316" fill="#1f1b16" font-size="40" font-family="Georgia, serif">5</text>
+    <text x="170" y="346" fill="#6d6255" font-size="18" font-family="Georgia, serif">Images reviewed</text>
+
+    <text x="374" y="316" fill="#1f1b16" font-size="40" font-family="Georgia, serif">2</text>
+    <text x="374" y="346" fill="#6d6255" font-size="18" font-family="Georgia, serif">Keep picks</text>
+
+    <text x="578" y="316" fill="#1f1b16" font-size="40" font-family="Georgia, serif">3</text>
+    <text x="578" y="346" fill="#6d6255" font-size="18" font-family="Georgia, serif">Passes</text>
+
+    <text x="782" y="316" fill="#1f1b16" font-size="40" font-family="Georgia, serif">7.38</text>
+    <text x="782" y="346" fill="#6d6255" font-size="18" font-family="Georgia, serif">Average score</text>
+  </g>
+
+  <text x="144" y="430" fill="#1f1b16" font-size="30" font-family="Georgia, serif">Ranked Gallery</text>
+
+  <g>
+    <rect x="144" y="454" width="224" height="128" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+    <rect x="388" y="454" width="224" height="128" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+    <rect x="632" y="454" width="224" height="128" rx="18" fill="#fffdf8" stroke="#d9d0c3"/>
+
+    <text x="166" y="486" fill="#6d6255" font-size="18" font-family="Georgia, serif">#1</text>
+    <text x="166" y="518" fill="#1f1b16" font-size="24" font-family="Georgia, serif">river-tern-03.jpg</text>
+    <rect x="166" y="532" width="112" height="30" rx="15" fill="#e4f0eb"/>
+    <text x="184" y="552" fill="#2f6c5b" font-size="16" font-family="Arial, sans-serif">8.6 / keep</text>
+
+    <text x="410" y="486" fill="#6d6255" font-size="18" font-family="Georgia, serif">#2</text>
+    <text x="410" y="518" fill="#1f1b16" font-size="24" font-family="Georgia, serif">meadow-heron-01.jpg</text>
+    <rect x="410" y="532" width="112" height="30" rx="15" fill="#e4f0eb"/>
+    <text x="428" y="552" fill="#2f6c5b" font-size="16" font-family="Arial, sans-serif">7.9 / keep</text>
+
+    <text x="654" y="486" fill="#6d6255" font-size="18" font-family="Georgia, serif">#3</text>
+    <text x="654" y="518" fill="#1f1b16" font-size="24" font-family="Georgia, serif">reed-warbler-02.jpg</text>
+    <rect x="654" y="532" width="112" height="30" rx="15" fill="#f6e8e1"/>
+    <text x="673" y="552" fill="#8a4f3d" font-size="16" font-family="Arial, sans-serif">7.2 / pass</text>
+  </g>
+
+  <text x="144" y="626" fill="#6d6255" font-size="18" font-family="Georgia, serif">Preview generated from the anonymized sample bundle in examples/sample_output/</text>
+</svg>
